@@ -1,0 +1,109 @@
+[Users]
+
+GetAllUser : localhost:3000/api/orders @ method GET
+
+Create User : localhost:3000/api/orders/create @ method POST
+    {   
+   "name" : "test",
+        "lastname": "test",
+        "email" : "test@test.com",
+        "phone": "0808080808",
+        "walletAddress": "0xFc4D1e84E8193a942Ec88ec89BD887Dd10D281cA"
+    }
+
+---------------------------------------------------------------------------------------------
+[Orders]
+
+GetAllOrder : localhost:3000/api/orders @ method GET
+
+Create Order : localhost:3000/api/orders/create @ method POST
+    {   
+        "customer_id": 1, \\ ยูสเซอร์ที่ตั้งการขายเหรียญ
+        "product_id": 1, \\ เหรียญ Bitcoin
+        "quantity": 2, \\ จำนวน
+        "status": "pending" \\ สถานะ
+    }
+
+---------------------------------------------------------------------------------------------
+
+[Transactions]
+
+Transactions : localhost:3000/api/transactions/1 @ method GET
+
+Transactions Detail : localhost:3000/api/transactions/details/1
+
+response = {
+    "transaction": [
+        {
+            "TransactionId": 1, // TransactionId
+            "OrderId": 1, // OrderId ref OrderId
+            "sendder": {
+                "sendderBy": "jaruwat thamkrasair", // ชื่อผู้ส่งเหรียญ
+                "receiverBy": "game test", // ชื่อผู้รับเหรียญ
+                "sendderTo": "0x77bCcB0f03e115Ee1e4ae305d6A14Fd7092913b3", // จ่ายเงินให้กับกระเป๋าผู้ซื้อ
+                "coin": "Bitcoin", // เหรียญที่ส่ง
+                "amount": 2, // จำนวนเหรียญที่ส่ง
+                "type": "sell" // ผู้ขาย
+            },
+            "receiver": {
+                "sendderBy": "game test", // ผู้จ่ายเงิน
+                "receiverBy": "jaruwat thamkrasair", // ผู้รับเงิน
+                "sendderTo": "0xFc4D1e84E8193a942Ec88ec89BD887Dd10D281cA", // จ่ายเงินให้กับกระเป๋าผู้ขาย
+                "totalPay": 6800000, // จำนวนเงินที่ต้องจ่าย
+                "type": "buy" // ผู้ซื้อ
+            },
+            "creationTime": "2025-01-23T16:21:10.182Z"
+        }
+    ]
+}
+
+[Create Transaction when OrderConfirm]
+
+Create Order : localhost:3000/api/orders/create @ method POST
+    {   
+        "customer_id": 1, \\ ยูสเซอร์ที่ตั้งการขายเหรียญ
+        "product_id": 1, \\ เหรียญ Bitcoin
+        "quantity": 2, \\ จำนวน
+        "status": "pending" \\ สถานะ
+    }
+
+localhost:3000/api/orders/confirm @ method POST
+
+Payload : 
+{
+    "orderid": 3, \\ confirm orderid = 3
+    "customer_id": 2 \\ confirm by user_id = 2
+}
+
+response :
+
+{
+    "order": {
+        "Message": "Order completed",
+        "Transaction": [
+            {
+                "TransactionId": 3,
+                "OrderId": 3,
+                "sendder": {
+                    "sendderId": "jaruwat thamkrasair",
+                    "receiverId": "game test",
+                    "sendderTo": "0x77bCcB0f03e115Ee1e4ae305d6A14Fd7092913b3",
+                    "coin": "Bitcoin",
+                    "amount": 2,
+                    "type": "sell"
+                },
+                "receiver": {
+                    "sendderId": "game test",
+                    "receiverId": "jaruwat thamkrasair",
+                    "sendderTo": "0xFc4D1e84E8193a942Ec88ec89BD887Dd10D281cA",
+                    "totalPay": 6800000,
+                    "type": "buy"
+                },
+                "creationTime": "2025-01-23T20:04:33.156Z"
+            }
+        ]
+    }
+}
+
+---------------------------------------------------------------------------------------------
+
