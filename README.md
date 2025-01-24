@@ -5,12 +5,11 @@ This project is a backend system designed to handle cryptocurrency transactions,
 ## Table of Contents
 
 - [Getting Started](#getting-started)
-- [Concept Overview](#concept-overview)
+- [Concept Overview](#DataStorageConcept)
 - [API Endpoints](#api-endpoints)
   - [User Endpoints](#user-endpoints)
   - [Order Endpoints](#order-endpoints)
   - [Transaction Endpoints](#transaction-endpoints)
-- [Data Structures](#data-structures)
 
 ---
 
@@ -31,7 +30,7 @@ Follow these steps to run the project on your local machine:
    ```bash
    node server.mjs
 
-Data Storage Concept
+## Data Storage Concept
 
 This project focuses on handling Order and Transaction data, specifically for buying and selling cryptocurrency. Below is the flow of data:
 Order Creation:
