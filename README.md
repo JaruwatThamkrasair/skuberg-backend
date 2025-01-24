@@ -48,3 +48,32 @@ The transaction contains details of the sender (order creator) and the receiver 
 Transaction Data Structure
 
 The transaction data is structured as follows:
+  ```bash
+          "transaction": [
+        {
+        "TransactionId": 1,
+        "orderId": 1,
+        "sendder": {
+            "sendderId": 1,
+            "receiverId": 2,
+            "cryptocurrencyId": 1,
+            "quantity": 2,
+            "type": "ownerpost",
+            "creation_time": "2025-01-24T02:51:58.468Z",
+            "deleted_at": null
+        },
+        "receiver": {
+            "sendderId": 2,
+            "receiverId": 1,
+            "price": 3000000,
+            "quantity": 2,
+            "totalPrice": 6000000,
+            "type": "buyer",
+            "creation_time": "2025-01-24T02:51:58.468Z",
+            "deleted_at": null
+        },
+        "creationTime": "2025-01-24T09:41:36.032Z",
+        "transaction_status": "Successful",
+        "deleted_at": null
+        }
+  ]
