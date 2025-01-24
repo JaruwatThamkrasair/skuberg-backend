@@ -158,3 +158,46 @@ Each transaction includes additional details, such as wallet addresses and payme
     "user_id": 3
     }
 ***
+## Order Endpoints
+
+1. Get All Orders
+   ```bash
+   GET /api/orders
+2. Create Order
+   ```bash
+   POST /api/orders/create
+   ```
+   Payload:
+   ```bash
+    {
+    "user_id": 2,
+    "cryptoId": 1,
+    "price": 3200000,
+    "quantity": 2,
+    "status": "pending"
+    }
+3. Confirm Order (Creates a Transaction)
+   ```bash
+   POST /api/orders/create
+      ```
+   Payload:
+   ```bash
+    {
+    "orderid": 4,
+    "user_id": 2
+    }
+***
+## Transaction Endpoints
+1. Get All Transactions
+   ```bash
+   GET /api/transactions
+2. Get Raw Transaction Data
+   ```bash
+   GET /api/transactions/:id
+   ```
+3. Get Transaction Details
+   ```bash
+   GET /api/transactions/details/:id
+      ```
+
+
