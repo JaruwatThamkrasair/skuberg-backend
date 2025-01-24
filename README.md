@@ -1,9 +1,11 @@
 <h1>How to run project</h1>
 
-1. press this on commandline : git clone https://github.com/JaruwatThamkrasair/skuberg-backend.git
-2. in command line : cd skuberg-backend
-3. in command line : npm install
-4. in command line : node server.mjs
+1. Clone the  repository :
+<div style="padding:3;background-color:'black';color:'white'">git clone https://github.com/JaruwatThamkrasair/skuberg-backend.git</div>
+
+3. in command line : cd skuberg-backend
+4. in command line : npm install
+5. in command line : node server.mjs
 
 [Users]
 // ดึงข้อมูล Users ทั้งหมด
