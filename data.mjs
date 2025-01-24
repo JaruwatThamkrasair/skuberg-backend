@@ -7,16 +7,16 @@ const TransactionMockData = [
         receiverId: 2,
         cryptocurrencyId: 1,
         quantity: 2,
-        type: "sell",
+        type: "ownerpost",
         createion_time: new Date(),
         deleted_at: new Date(),
       }, receiver: {
         sendderId: 2,
         receiverId: 1,
         price: 3000000,
-        quantity: 3,
+        quantity: 2,
         totalPrice: 9000000,
-        type: "buy",
+        type: "buyyer",
         createion_time: new Date(),
         deleted_at: new Date(),
       }
@@ -29,7 +29,7 @@ const TransactionMockData = [
             receiverId: 1,
             cryptocurrencyId: 3,
             quantity: 2,
-            type: "sell",
+            type: "ownerpost",
             createion_time: new Date(),
             deleted_at: new Date(),
           }, receiver: {
@@ -38,7 +38,7 @@ const TransactionMockData = [
             price: 100,
             quantity: 3,
             totalPrice: 300,
-            type: "buy",
+            type: "buyyer",
             createion_time: new Date(),
             deleted_at: new Date(),
           }

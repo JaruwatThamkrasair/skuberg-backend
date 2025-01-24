@@ -4,7 +4,7 @@ GetAllUser : localhost:3000/api/orders @ method GET
 
 Create User : localhost:3000/api/orders/create @ method POST
     {   
-   "name" : "test",
+        "name" : "test",
         "lastname": "test",
         "email" : "test@test.com",
         "phone": "0808080808",
@@ -37,6 +37,36 @@ Create Order : localhost:3000/api/orders/create @ method POST
 [Transactions]
 
 Transactions : localhost:3000/api/transactions/1 @ method GET
+
+Transaction Raw Data : localhost:3000/api/transactions/1 @ method GET
+
+{
+    "transaction": [
+        {
+            "TransactionId": 1, \\ TransactionId
+            "orderId": 1, \\ OrderId
+            "sendder": { \\ ผู้ขาย
+                "sendderId": 1, \\ user_id ของผู้ขาย
+                "receiverId": 2, \\ user_id ของผู้รับ
+                "cryptocurrencyId": 1, \\ cryptocurrencyId
+                "quantity": 2, \\ จำนวนที่ขาย
+                "type": "ownerpost", \\ ขายสินค้า
+                "createion_time": "2025-01-24T02:51:58.468Z",
+                "deleted_at": "2025-01-24T02:51:58.468Z"
+            },
+            "receiver": { \\ ผู้ทำธุรกรรม
+                "sendderId": 2, \\ user_id ของซื้อ
+                "receiverId": 1, \\ user_id ของผู้ขาย
+                "price": 3000000, \\ ราคาที่ผู้ขายตั้งไว้
+                "quantity": 2, \\ จำนวนที่ซื้อ
+                "totalPrice": 9000000, \\ จำนวนเงินทั้งหมดที่ต้องจ่าย
+                "type": "buyyer", \\ ผู้ซื้อเหรียญ
+                "createion_time": "2025-01-24T02:51:58.468Z",
+                "deleted_at": "2025-01-24T02:51:58.468Z"
+            }
+        }
+    ]
+}
 
 Transactions Detail : localhost:3000/api/transactions/details/1
 
