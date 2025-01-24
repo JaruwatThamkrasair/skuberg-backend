@@ -74,9 +74,13 @@ The transaction data is structured as follows:
 ```
 
 This data provides detailed information about:
+
   • Sender and receiver details.
+  
   • Amount of cryptocurrency and price.
+  
   • Status of the transaction.
+  
 Transaction Details Mapping
 
 Each transaction includes additional details, such as wallet addresses and payment amounts:
@@ -114,7 +118,43 @@ Each transaction includes additional details, such as wallet addresses and payme
 }
 ```
 
-API Endpoints
+# API Endpoints
 
-User Endpoints
+## User Endpoints
 
+1. Get All Users
+   ```bash
+   GET /api/users
+2. Create User
+   ```bash
+   POST /api/user/register
+   ```
+   Payload:
+   ```bash
+    {
+    "name": "test",
+    "lastname": "test",
+    "email": "test@test.com",
+    "phone": "0808080808",
+    "walletAddress": "0xFc4D1e84E8193a942Ec88ec89BD887Dd10D281cA",
+    "bookbank": "0009875432"
+    }
+3. Approve User
+   ```bash
+   POST /api/user/register
+      ```
+   Payload:
+   ```bash
+    {
+    "user_id": 3
+    }
+4. Approve User
+   ```bash
+   POST /api/user/Transaction
+      ```
+   Payload:
+   ```bash
+    {
+    "user_id": 3
+    }
+***
