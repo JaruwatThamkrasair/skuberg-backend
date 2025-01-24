@@ -49,7 +49,7 @@ Transaction Data Structure
 
 The transaction data is structured as follows:
   ```bash
-          "transaction": [
+  "transaction": [
         {
         "TransactionId": 1,
         "orderId": 1,
@@ -77,3 +77,17 @@ The transaction data is structured as follows:
         "deleted_at": null
         }
   ]
+
+
+This data provides detailed information about:
+
+• Sender and receiver details.
+
+• Amount of cryptocurrency and price.
+
+• Status of the transaction.
+
+Transaction Details Mapping
+
+Each transaction includes additional details, such as wallet addresses and payment amounts:
+    ```bash
