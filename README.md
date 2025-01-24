@@ -21,3 +21,30 @@ Follow these steps to run the project on your local machine:
 1. Clone the repository:
    ```bash
    git clone https://github.com/JaruwatThamkrasair/skuberg-backend.git
+2. Navigate to the project directory:
+   ```bash
+   cd skuberg-backend
+3. Install dependencies::
+   ```bash
+   npm install
+4. Start the server:
+   ```bash
+   node server.mjs
+
+Data Storage Concept
+
+This project focuses on handling Order and Transaction data, specifically for buying and selling cryptocurrency. Below is the flow of data:
+
+Order Creation:
+
+Orders are created when users post buy/sell requests for cryptocurrency.
+
+Transaction Creation:
+
+When an order is confirmed by another user, a Transaction is generated using the order details.
+
+The transaction contains details of the sender (order creator) and the receiver (user who confirmed the order).
+
+Transaction Data Structure
+
+The transaction data is structured as follows:
