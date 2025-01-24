@@ -34,22 +34,16 @@ Follow these steps to run the project on your local machine:
 Data Storage Concept
 
 This project focuses on handling Order and Transaction data, specifically for buying and selling cryptocurrency. Below is the flow of data:
-
 Order Creation:
-
 Orders are created when users post buy/sell requests for cryptocurrency.
-
 Transaction Creation:
-
 When an order is confirmed by another user, a Transaction is generated using the order details.
-
 The transaction contains details of the sender (order creator) and the receiver (user who confirmed the order).
-
 Transaction Data Structure
 
 The transaction data is structured as follows:
-  ```bash
-  "transaction": [
+```bash
+"transaction": [
         {
         "TransactionId": 1,
         "orderId": 1,
@@ -75,19 +69,52 @@ The transaction data is structured as follows:
         "creationTime": "2025-01-24T09:41:36.032Z",
         "transaction_status": "Successful",
         "deleted_at": null
-        }
-  ]
-
+      }
+]
+```
 
 This data provides detailed information about:
-
-• Sender and receiver details.
-
-• Amount of cryptocurrency and price.
-
-• Status of the transaction.
-
+  • Sender and receiver details.
+  • Amount of cryptocurrency and price.
+  • Status of the transaction.
 Transaction Details Mapping
 
 Each transaction includes additional details, such as wallet addresses and payment amounts:
-    ```bash
+  ```bash
+    {
+    "order": {
+        "Message": "Order completed",
+        "Transaction": [
+            {
+                "TransactionId": 1,
+                "OrderId": 1,
+                "sendder": {
+                    "sendderBy": "jaruwat thamkrasair",
+                    "receiverBy": "game test",
+                    "sendderTo": "0x77bCcB0f03e115Ee1e4ae305d6A14Fd7092913b3",
+                    "coin": "Bitcoin",
+                    "amount": 2,
+                    "type": "sell"
+                },
+                "receiver": {
+                    "sendderBy": "game test",
+                    "receiverBy": "jaruwat thamkrasair",
+                    "sendderTo": "0xFc4D1e84E8193a942Ec88ec89BD887Dd10D281cA",
+                    "price": "3400000",
+                    "quantity": "2",
+                    "totalPay": 6800000,
+                    "type": "buy"
+                },
+                "creationTime": "2025-01-24T09:41:36.032Z",
+                "transaction_status": "Successful",
+                "deleted_at": null
+            }
+        ]
+    }
+}
+```
+
+API Endpoints
+
+User Endpoints
+
