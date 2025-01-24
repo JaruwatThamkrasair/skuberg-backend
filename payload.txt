@@ -1,3 +1,92 @@
+How to run project
+
+1. press this on commandline : git clone https://github.com/JaruwatThamkrasair/skuberg-backend.git
+2. in command line : cd skuberg-backend
+3. in command line : npm install
+4. in command line : node server.mjs
+
+** แนวคิดการเก็บข้อมูลของผมครับ **
+
+เก็บข้อมูล Order จากการสร้างโพสต์รับ ซื้อ/ขาย เหรียญ
+
+เมื่อมีการกด Confirm การซื้อขายเหรียญ จะสร้าง Transaction โดยนำข้อมูลที่ได้จาก Order เป็นข้อมูลตั้งต้น
+
+และนำ user_id ของผู้ที่กด Confirm เข้ามาปั้นรวมกันเป็นก้อนข้อมูล เพื่อระบุถึง 
+
+* Sendder ผู้โพสต์
+** receiver ผู้ยืนยัน Confirm เข้ามา
+
+ข้อมูล Transaction จะเก็บในรูปแบบ
+
+   "transaction": [
+        {
+            "TransactionId": 1, \\ TransactionId
+            "orderId": 1, \\ OrderId ที่ยืนยันเข้ามาผ่าน Confirm Order
+            "sendder": { \\ ผู้ขาย
+                "sendderId": 1, \\ user_id ของผู้ขายจาก orderId
+                "receiverId": 2, \\ user_id ของผู้รับ
+                "cryptocurrencyId": 1, \\ cryptocurrencyId ของผู้ขายจาก orderId
+                "quantity": 2, \\ จำนวนที่ขาย ของผู้ขายจาก orderId
+                "type": "ownerpost", \\ ผู้โพสต์ขายสินค้า
+                "createion_time": "2025-01-24T02:51:58.468Z",
+                "deleted_at": "2025-01-24T02:51:58.468Z"
+            },
+            "receiver": { \\ ผู้ทำธุรกรรม ( ผู้กด Confirm Order )
+                "sendderId": 2, \\ user_id ของซื้อที่ยืนยันเข้ามาผ่าน Confirm Order
+                "receiverId": 1, \\ user_id ของผู้ขายจาก orderId
+                "price": 3000000, \\ ราคาที่ผู้ขายตั้งไว้ใน orderId
+                "quantity": 2, \\ จำนวนที่ซื้อจาก orderId
+                "totalPrice": 6000000, \\ จำนวนเงินทั้งหมดที่ต้องจ่าย
+                "type": "buyyer", \\ ผู้ซื้อเหรียญ
+                "createion_time": "2025-01-24T02:51:58.468Z",
+                "deleted_at": "2025-01-24T02:51:58.468Z"
+            },
+                "creationTime": "2025-01-24T09:41:36.032Z",
+                "transaction_status": "Successful",
+                "deleted_at": null
+        }
+    ]
+
+*********************************************************************
+ข้อมูลที่ Map Detail Transaction ออกมาโดยละเอียด
+บอกว่า Transaction มีการโอนเหรียญให้กับกระเป๋าเงินเบอร์ไหน เป็นจำนวนเท่าไร และ
+บอกว่า ผู้ซื้อโอนเงินให้กับเลขบัญชีไหน เป็นจำนวนเท่าไร
+*********************************************************************
+{
+    "order": {
+        "Message": "Order completed",
+        "Transaction": [
+       {
+            "TransactionId": 1, // TransactionId
+            "OrderId": 1, // OrderId ref OrderId
+            "sendder": { // ชื่อผู้ส่งเหรียญ
+                "sendderBy": "jaruwat thamkrasair", // ชื่อผู้ส่งเหรียญ
+                "receiverBy": "game test", // ชื่อผู้รับเหรียญ
+                "sendderTo": "0x77bCcB0f03e115Ee1e4ae305d6A14Fd7092913b3", // จ่ายเงินให้กับกระเป๋าผู้ซื้อ
+                "coin": "Bitcoin", // เหรียญที่ส่ง
+                "amount": 2, // จำนวนเหรียญที่ส่ง
+                "type": "sell" // ผู้ขาย
+            },
+                "receiver": { // ผู้จ่ายเงิน
+                "sendderBy": "game test", // ผู้จ่ายเงิน
+                "receiverBy": "jaruwat thamkrasair", // ผู้รับเงิน
+                "sendderTo": "0xFc4D1e84E8193a942Ec88ec89BD887Dd10D281cA", // จ่ายเงินให้กับกระเป๋าผู้ขาย
+                "price": "3400000", // ราคาที่ผู้ขายตั้งไว้
+                "quantity": "2", // จำนวนที่ซื้อ
+                "totalPay": 6800000, // จำนวนเงินรวมที่ต้องจ่ายทั้งหมด
+                "type": "buy" // ผู้ซื้อ
+                },
+          "creationTime": "2025-01-24T09:41:36.032Z",
+                "transaction_status": "Successful",
+                "deleted_at": null
+            }
+            
+        ]
+    }
+}
+
+---------------------------------------------------------------- API ----------------------------------------------------------------
+
 [Users]
 // ดึงข้อมูล Users ทั้งหมด
 GetAllUser : localhost:3000/api/users @ method GET
@@ -51,7 +140,7 @@ Create Order : localhost:3000/api/orders/create @ method POST
 // ดึงข้อมูล Transaction ทั้งหมด
 Transactions : localhost:3000/api/transactions @ method GET
 
-// ข้อมูล Transaction ที่บันทึกไว้ ก่อนนำไปแจงรายละเอียดเป็น Transaction Detail
+// ข้อมูล Transaction จาก TransactionId ที่บันทึกไว้ ก่อนนำไปแจงรายละเอียดเป็น Transaction Detail
 Transaction Raw Data : localhost:3000/api/transactions/1 @ method GET
 
 {
@@ -132,7 +221,7 @@ localhost:3000/api/orders/confirm @ method POST
 // Confirm Order เพื่อสร้าง Transaction
 Payload : 
 {
-    "orderid": 3, \\ confirm orderid = 3
+    "orderid": 4, \\ confirm orderid = 4
     "user_id": 2 \\ confirm by user_id = 2
 }
 
@@ -172,4 +261,3 @@ response :
 }
 
 ---------------------------------------------------------------------------------------------
-
