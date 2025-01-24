@@ -13,11 +13,16 @@ export const createOrder = (req) => {
     const order = OrderData();
     const newId = order.length + 1;
 
-    const findUser = user.find((user) => user.id === req.customer_id);
+    const findUser = user.find((user) => user.id === req.user_id);
     if(!findUser){
         return { Message: 'User not found' };
-    }    
-    const findProduct = Crypto.find((item) => item.id === req.product_id);
+    }
+
+    if(findUser.status !== 'Approved'){
+        return { Message: 'User not approved' };
+    }
+    
+    const findProduct = Crypto.find((item) => item.id === req.cryptoId);
     if(!findProduct){
         return { Message: 'Product not found' };
     }
@@ -27,10 +32,10 @@ export const createOrder = (req) => {
 
     const newOrder = {
         id: newId,
-        userId: req.customer_id,
-        cryptocurrencyId: req.product_id,
+        userId: req.user_id,
+        cryptocurrencyId: req.cryptoId,
         quantity: req.quantity,
-        totalPrice: priceSum,
+        price: req.price,
         status: req.status,
         created_at: new Date(),
         updated_at: new Date(),
@@ -42,13 +47,13 @@ export const createOrder = (req) => {
 }
 };
 
-export const OrdersConfirm = (id, customer_id) => {
+export const OrdersConfirm = (id, user_id) => {
     const order = OrderData();
     const findOrder = order.find((item) => item.id === id);
     if(!findOrder){
         return { Message: 'Order not found' };
     }
     findOrder.status = 'completed';
-    const newTransaction = createTransaction(findOrder, customer_id);
+    const newTransaction = createTransaction(findOrder, user_id);
     return { Message: 'Order completed', Transaction: newTransaction };
 }

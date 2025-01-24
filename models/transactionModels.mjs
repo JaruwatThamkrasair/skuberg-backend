@@ -44,7 +44,9 @@ export const TransactionDetails = (id) => {
             receiver: {
                 sendderId: userReceiver.name + " " + userReceiver.lastname,
                 receiverId: userSendder.name + " " + userSendder.lastname,
-                sendderTo: userSendder.walletAddress,
+                sendderTo: userSendder.bookbank,
+                price: item.receiver.price,
+                quantity: item.receiver.quantity,
                 totalPay: item.receiver.totalPrice,
                 type: item.receiver.type
             },
@@ -72,8 +74,9 @@ export const createTransaction = (order, customerid) => {
             receiver: {
                 sendderId: customerid,
                 receiverId: order.userId,
-                totalPrice: order.totalPrice,
+                price: order.price,
                 quantity: order.quantity,
+                totalPrice: order.price * order.quantity,
                 type: "buy"
             },
             creation_time: new Date(),

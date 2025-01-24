@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { findMany, create } from "../models/userModels.mjs";
+import { findMany, create, ApproveUser } from "../models/userModels.mjs";
 
 const router = Router(); 
 router.get('/users', function (req, res) {
@@ -22,7 +22,16 @@ try{
 }catch(err){
     res.status(500).send({ error: err.message })
 }
+});
 
+
+router.post('/user/approve', function (req, res){
+try{
+    const { user_id } = req.body;
+    const approveUser = ApproveUser(user_id);
+    res.send({ approveUser })
+}catch(err){
+    res.status(500).send({ error: err.message })
+}
 })
-
 export default router;

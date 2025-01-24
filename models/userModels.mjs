@@ -21,6 +21,7 @@ export const create = (req) => {
         email: req.email,
         phone: req.phone,
         walletAddress: req.walletAddress,
+        status: "New",
         createion_time: new Date(),
         deleted_at: null,
       },
@@ -31,3 +32,13 @@ export const create = (req) => {
     throw new Error(e.message);
   }
 };
+
+export const ApproveUser = (id) => {
+  const Data = userData();
+  const findUser = Data.find((item) => item.id === id);
+  if (!findUser) {
+    return { Message: "User not found" };
+  }
+  findUser.status = "Approved";
+  return { Message: "User Approved", User: findUser };
+}

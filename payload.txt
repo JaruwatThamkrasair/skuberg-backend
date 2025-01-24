@@ -8,8 +8,15 @@ Create User : localhost:3000/api/orders/create @ method POST
         "lastname": "test",
         "email" : "test@test.com",
         "phone": "0808080808",
-        "walletAddress": "0xFc4D1e84E8193a942Ec88ec89BD887Dd10D281cA"
+        "walletAddress": "0xFc4D1e84E8193a942Ec88ec89BD887Dd10D281cA",
+        "BookBank": "0009875432"
     }
+
+Approve User : localhost:3000/api/user/approve @ method POST
+
+{
+    "user_id": 3
+}
 
 ---------------------------------------------------------------------------------------------
 [Orders]
@@ -18,8 +25,9 @@ GetAllOrder : localhost:3000/api/orders @ method GET
 
 Create Order : localhost:3000/api/orders/create @ method POST
     {   
-        "customer_id": 1, \\ ยูสเซอร์ที่ตั้งการขายเหรียญ
-        "product_id": 1, \\ เหรียญ Bitcoin
+        "user_id": 2, \\ ยูสเซอร์ที่ตั้งการขายเหรียญ
+        "cryptoId": 1, \\ เหรียญ Bitcoin
+        "price": 3200000, \\ จำนวนที่ต้องการซื้อ หรือ ต้องการขาย
         "quantity": 2, \\ จำนวน
         "status": "pending" \\ สถานะ
     }
@@ -49,7 +57,9 @@ response = {
                 "sendderBy": "game test", // ผู้จ่ายเงิน
                 "receiverBy": "jaruwat thamkrasair", // ผู้รับเงิน
                 "sendderTo": "0xFc4D1e84E8193a942Ec88ec89BD887Dd10D281cA", // จ่ายเงินให้กับกระเป๋าผู้ขาย
-                "totalPay": 6800000, // จำนวนเงินที่ต้องจ่าย
+                "price": "3400000", // ราคาที่ผู้ขายตั้งไว้
+                "quantity": "2", // จำนวนที่ซื้อ
+                "totalPay": 6800000, // จำนวนเงินรวมที่ต้องจ่ายทั้งหมด
                 "type": "buy" // ผู้ซื้อ
             },
             "creationTime": "2025-01-23T16:21:10.182Z"
@@ -61,10 +71,11 @@ response = {
 
 Create Order : localhost:3000/api/orders/create @ method POST
     {   
-        "customer_id": 1, \\ ยูสเซอร์ที่ตั้งการขายเหรียญ
-        "product_id": 1, \\ เหรียญ Bitcoin
-        "quantity": 2, \\ จำนวน
-        "status": "pending" \\ สถานะ
+     "user_id": 2,
+        "cryptoId": 1,
+        "price": 3200000,
+        "quantity": 2,
+        "status": "pending"
     }
 
 localhost:3000/api/orders/confirm @ method POST
@@ -72,7 +83,7 @@ localhost:3000/api/orders/confirm @ method POST
 Payload : 
 {
     "orderid": 3, \\ confirm orderid = 3
-    "customer_id": 2 \\ confirm by user_id = 2
+    "user_id": 2 \\ confirm by user_id = 2
 }
 
 response :
@@ -81,25 +92,27 @@ response :
     "order": {
         "Message": "Order completed",
         "Transaction": [
-            {
-                "TransactionId": 3,
-                "OrderId": 3,
-                "sendder": {
-                    "sendderId": "jaruwat thamkrasair",
-                    "receiverId": "game test",
-                    "sendderTo": "0x77bCcB0f03e115Ee1e4ae305d6A14Fd7092913b3",
-                    "coin": "Bitcoin",
-                    "amount": 2,
-                    "type": "sell"
+       {
+            "TransactionId": 1, // TransactionId
+            "OrderId": 1, // OrderId ref OrderId
+            "sendder": { // ชื่อผู้ส่งเหรียญ
+                "sendderBy": "jaruwat thamkrasair", // ชื่อผู้ส่งเหรียญ
+                "receiverBy": "game test", // ชื่อผู้รับเหรียญ
+                "sendderTo": "0x77bCcB0f03e115Ee1e4ae305d6A14Fd7092913b3", // จ่ายเงินให้กับกระเป๋าผู้ซื้อ
+                "coin": "Bitcoin", // เหรียญที่ส่ง
+                "amount": 2, // จำนวนเหรียญที่ส่ง
+                "type": "sell" // ผู้ขาย
+            },
+                "receiver": { // ผู้จ่ายเงิน
+                "sendderBy": "game test", // ผู้จ่ายเงิน
+                "receiverBy": "jaruwat thamkrasair", // ผู้รับเงิน
+                "sendderTo": "0xFc4D1e84E8193a942Ec88ec89BD887Dd10D281cA", // จ่ายเงินให้กับกระเป๋าผู้ขาย
+                "price": "3400000", // ราคาที่ผู้ขายตั้งไว้
+                "quantity": "2", // จำนวนที่ซื้อ
+                "totalPay": 6800000, // จำนวนเงินรวมที่ต้องจ่ายทั้งหมด
+                "type": "buy" // ผู้ซื้อ
                 },
-                "receiver": {
-                    "sendderId": "game test",
-                    "receiverId": "jaruwat thamkrasair",
-                    "sendderTo": "0xFc4D1e84E8193a942Ec88ec89BD887Dd10D281cA",
-                    "totalPay": 6800000,
-                    "type": "buy"
-                },
-                "creationTime": "2025-01-23T20:04:33.156Z"
+                "creationTime": "2025-01-24T02:39:03.724Z"
             }
         ]
     }

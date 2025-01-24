@@ -9,8 +9,8 @@ router.get("/orders", function (req, res) {
 
 router.post("/orders/create", function (req, res) {
   try {
-    const { customer_id, product_id, quantity, status } = req.body;
-    const newOrder = { customer_id, product_id, quantity, status };
+    const { user_id, cryptoId, quantity, price, status } = req.body;
+    const newOrder = { user_id, cryptoId, price, quantity, status };
     const createdOrder = createOrder(newOrder);
     res.send({ data: createdOrder });
   } catch (error) {
@@ -21,8 +21,8 @@ export default router;
 
 router.post("/orders/confirm", function(req, res){
   try{
-    const { orderid, customer_id } = req.body;
-    const order = OrdersConfirm(orderid, customer_id);
+    const { orderid, user_id } = req.body;
+    const order = OrdersConfirm(orderid, user_id);
     res.send({ order });    
   }catch (error) {
     res.status(500).send({ error: error.message });
