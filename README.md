@@ -5,7 +5,7 @@ This project is a backend system designed to handle cryptocurrency transactions,
 ## Table of Contents
 
 - [Getting Started](#getting-started)
-- [Concept Overview](#DataStorageConcept)
+- [Concept Overview](#data-storage-concept)
 - [API Endpoints](#api-endpoints)
   - [User Endpoints](#user-endpoints)
   - [Order Endpoints](#order-endpoints)
@@ -76,7 +76,7 @@ This data provides detailed information about:
 
   • Sender and receiver details.
   
-  • Amount of cryptocurrency and price.
+  • Amount of cryptocurrency and price.
   
   • Status of the transaction.
   
