@@ -1,4 +1,4 @@
-import { OrderData, CryptocurrencyData, userData } from "../seed.mjs";
+import { OrderData, CryptocurrencyData, userData, TransactionDataAll } from "../seed.mjs";
 import { createTransaction } from "./transactionModels.mjs";
 
 export const Orders = () => {
@@ -50,6 +50,13 @@ export const createOrder = (req) => {
 export const OrdersConfirm = (id, user_id) => {
     const order = OrderData();
     const findOrder = order.find((item) => item.id === id);
+
+    const findTransaction = TransactionDataAll().find((item) => item.orderId === id);
+    if(findTransaction){
+        return { Message: 'Transaction is already completed' };
+    }
+
+    
     if(!findOrder){
         return { Message: 'Order not found' };
     }

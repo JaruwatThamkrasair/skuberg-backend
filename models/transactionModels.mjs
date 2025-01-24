@@ -23,7 +23,6 @@ export const TransactionDetails = (id) => {
   if (!transactions) {
     return { error: "Transaction not found" };
   }
-
     const transaction = transactions.map((item) => {
         const userSendder = User.find((user) => user.id === item.sendder.sendderId);
         const cryptocurrencySendder = Cryto.find((crypto) => crypto.id === item.sendder.cryptocurrencyId);
@@ -50,7 +49,9 @@ export const TransactionDetails = (id) => {
                 totalPay: item.receiver.totalPrice,
                 type: item.receiver.type
             },
-            creationTime: new Date()
+            creationTime: new Date(),
+            transaction_status: "Successful",
+            deleted_at: null
         }
     })
 
@@ -80,6 +81,7 @@ export const createTransaction = (order, customerid) => {
                 type: "buy"
             },
             creation_time: new Date(),
+            transaction_status: "Successful",
             deleted_at: null
         };
         TransactionDataAll().push(transaction);

@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { findMany, create, ApproveUser } from "../models/userModels.mjs";
+import { findMany, create, ApproveUser, userTransaction } from "../models/userModels.mjs";
 
 const router = Router(); 
 router.get('/users', function (req, res) {
@@ -9,13 +9,14 @@ router.get('/users', function (req, res) {
 
 router.post('/user/register', function (req, res){
 try{
-    const { name, lastname, email, phone, walletAddress } = req.body;
+    const { name, lastname, email, phone, walletAddress, bookbank } = req.body;
     const newUser = {
         name,
         lastname,
         email,
         phone,
-        walletAddress
+        walletAddress,
+        bookbank
     }
     const createUser = create(newUser);
     res.send({ createUser })
@@ -34,4 +35,14 @@ try{
     res.status(500).send({ error: err.message })
 }
 })
+
+router.post('/user/Transaction', function (req, res){
+    try{
+        const { user_id } = req.body;
+        const transaction = userTransaction(user_id);
+        res.send({ transaction })
+    }catch(err){
+        res.status(500).send({ error: err.message })
+    }
+    })
 export default router;

@@ -1,18 +1,28 @@
 [Users]
+// ดึงข้อมูล Users ทั้งหมด
+GetAllUser : localhost:3000/api/users @ method GET
 
-GetAllUser : localhost:3000/api/orders @ method GET
+// สร้าง User
+Create User : localhost:3000/api/user/register @ method POST
 
-Create User : localhost:3000/api/orders/create @ method POST
     {   
         "name" : "test",
         "lastname": "test",
         "email" : "test@test.com",
         "phone": "0808080808",
         "walletAddress": "0xFc4D1e84E8193a942Ec88ec89BD887Dd10D281cA",
-        "BookBank": "0009875432"
+        "bookbank": "0009875432"
     }
 
+// Approve Status สำหรับ Verify ข้อมูล User
 Approve User : localhost:3000/api/user/approve @ method POST
+
+{
+    "user_id": 3
+}
+
+// ดึงข้อมูล Transaction ที่เกี่ยวข้องกับ User__id นั้น ๆ
+User Transactions : localhost:3000/api/user/Transaction @ method POST
 
 {
     "user_id": 3
@@ -21,8 +31,10 @@ Approve User : localhost:3000/api/user/approve @ method POST
 ---------------------------------------------------------------------------------------------
 [Orders]
 
+// ดึงข้อมูล Order ทั้งหมด
 GetAllOrder : localhost:3000/api/orders @ method GET
 
+// สร้าง Order เช่น ตั้งขายเหรียญ Bitcoin, รับซื้อเหรียญ Bitcoin
 Create Order : localhost:3000/api/orders/create @ method POST
     {   
         "user_id": 2, \\ ยูสเซอร์ที่ตั้งการขายเหรียญ
@@ -36,8 +48,10 @@ Create Order : localhost:3000/api/orders/create @ method POST
 
 [Transactions]
 
-Transactions : localhost:3000/api/transactions/1 @ method GET
+// ดึงข้อมูล Transaction ทั้งหมด
+Transactions : localhost:3000/api/transactions @ method GET
 
+// ข้อมูล Transaction ที่บันทึกไว้ ก่อนนำไปแจงรายละเอียดเป็น Transaction Detail
 Transaction Raw Data : localhost:3000/api/transactions/1 @ method GET
 
 {
@@ -59,15 +73,19 @@ Transaction Raw Data : localhost:3000/api/transactions/1 @ method GET
                 "receiverId": 1, \\ user_id ของผู้ขาย
                 "price": 3000000, \\ ราคาที่ผู้ขายตั้งไว้
                 "quantity": 2, \\ จำนวนที่ซื้อ
-                "totalPrice": 9000000, \\ จำนวนเงินทั้งหมดที่ต้องจ่าย
+                "totalPrice": 6000000, \\ จำนวนเงินทั้งหมดที่ต้องจ่าย
                 "type": "buyyer", \\ ผู้ซื้อเหรียญ
                 "createion_time": "2025-01-24T02:51:58.468Z",
                 "deleted_at": "2025-01-24T02:51:58.468Z"
-            }
+            },
+                "creationTime": "2025-01-24T09:41:36.032Z",
+                "transaction_status": "Successful",
+                "deleted_at": null
         }
     ]
 }
 
+// ข้อมูล Transaction แบบ Map ข้อมูลจาก Unique Key เรียบร้อยแล้ว
 Transactions Detail : localhost:3000/api/transactions/details/1
 
 response = {
@@ -97,6 +115,7 @@ response = {
     ]
 }
 
+// สร้าง Order เช่น ตั้งขายเหรียญ Bitcoin, รับซื้อเหรียญ Bitcoin
 [Create Transaction when OrderConfirm]
 
 Create Order : localhost:3000/api/orders/create @ method POST
@@ -110,6 +129,7 @@ Create Order : localhost:3000/api/orders/create @ method POST
 
 localhost:3000/api/orders/confirm @ method POST
 
+// Confirm Order เพื่อสร้าง Transaction
 Payload : 
 {
     "orderid": 3, \\ confirm orderid = 3
@@ -142,8 +162,11 @@ response :
                 "totalPay": 6800000, // จำนวนเงินรวมที่ต้องจ่ายทั้งหมด
                 "type": "buy" // ผู้ซื้อ
                 },
-                "creationTime": "2025-01-24T02:39:03.724Z"
+          "creationTime": "2025-01-24T09:41:36.032Z",
+                "transaction_status": "Successful",
+                "deleted_at": null
             }
+            
         ]
     }
 }

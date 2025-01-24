@@ -19,7 +19,10 @@ const TransactionMockData = [
         type: "buyyer",
         createion_time: new Date(),
         deleted_at: new Date(),
-      }
+      },
+      creationTime: new Date(),
+      transaction_status: "Successful",
+      deleted_at: null
     },
     {
         TransactionId: 2,
@@ -41,8 +44,36 @@ const TransactionMockData = [
             type: "buyyer",
             createion_time: new Date(),
             deleted_at: new Date(),
+          },
+          creationTime: new Date(),
+          transaction_status: "Successful",
+          deleted_at: null
+        },
+        {
+          TransactionId: 3,
+          orderId: 3,
+            sendder: {
+              sendderId: 3,
+              receiverId: 1,
+              cryptocurrencyId: 1,
+              quantity: 1,
+              type: "ownerpost",
+              createion_time: new Date(),
+              deleted_at: new Date(),
+            }, receiver: {
+              sendderId: 1,
+              receiverId: 3,
+              price: 3000000,
+              quantity: 1,
+              totalPrice: 3000000,
+              type: "buyyer",
+              createion_time: new Date(),
+              deleted_at: new Date(),
+            },
+            creationTime: new Date(),
+            transaction_status: "Successful",
+            deleted_at: null
           }
-        }
   ];
 
   
@@ -63,6 +94,16 @@ const orderdatadetail = [
         cryptocurrencyId: 3,
         quantity: 3,
         totalPrice: 315,
+        status: "completed",
+        createion_time: new Date(),
+        deleted_at: new Date(),
+      },
+      {
+        id: 3,
+        userId: 3,
+        cryptocurrencyId: 1,
+        quantity: 1,
+        totalPrice: 3000000,
         status: "completed",
         createion_time: new Date(),
         deleted_at: new Date(),
@@ -140,6 +181,19 @@ const orderdatadetail = [
       phone: "0971302225",
       walletAddress: "0x77bCcB0f03e115Ee1e4ae305d6A14Fd7092913b3",
       bookbank: "9550124789",
+      status: "Approved",
+      createion_time: new Date(),
+      deleted_at: new Date(),
+    },
+    {
+      id: 4,
+      name: "test4",
+      lastname: "lasttest4",
+      email: "test4@test.com",
+      password: "testtest",
+      phone: "0971302225",
+      walletAddress: "0x77bCcB0f03e115Ee1e4ae305d6A14Fd702231s23",
+      bookbank: "9101651651",
       status: "New",
       createion_time: new Date(),
       deleted_at: new Date(),

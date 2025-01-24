@@ -26,3 +26,14 @@ export const TransactionData = (id) => {
   }
   return [transactions];
 };
+
+export const UserTransactionData = (id) => {
+  const MockData = Data.TransactionMockData;
+  const numerric = parseInt(id, 10);
+  const transactions = MockData.filter((item) => item.sendder.sendderId === numerric || item.sendder.receiverId === numerric);
+  if (!transactions) {
+    return null;
+  }
+  return transactions;
+};
+
